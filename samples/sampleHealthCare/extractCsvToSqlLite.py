@@ -8,7 +8,7 @@ Config.LOGS_DEBUG = logging.DEBUG
 Config.VERSION_DIR = "C:\\dingDong"
 
 """ Config all connection URL
-    Can be used by update Config.CONN_URL property or by send dictionary into connDict property at DingDong class init`
+    Can be used by update Config.CONNECTIONS property or by send dictionary into connDict property at DingDong class init`
     key : can be general connection name , or connection type (sql, oracle, file .. )
     value: 
         String--> connection string URL (key will be used to defined connection type: sql, oracle, mySql....
@@ -16,7 +16,7 @@ Config.VERSION_DIR = "C:\\dingDong"
             'conn' -> connenction type. full type list can be found at dingDong.misc.enumsJson.eConn static class 
             'url'  -> connection URL  
 """
-Config.CONN_URL = {
+Config.CONNECTIONS = {
     'sampleSql': {'conn': 'sql',"url": "<Sql server connection string>;UID=USER;PWD=PWD;"},
     'file': "C:\\dingDong\\",
     'sqlite': {"url":"C:\\dingDong\\sqlLiteDB.db","create":"tableName"}}
@@ -31,7 +31,6 @@ Config.CONN_URL = {
 
     file default datatype can be found at dingDong.conn.baseBatch under DEFAULTS values (currently set to VARCHAR(200) for all relation Dbs   
 """
-source : ["s"]
 
 nodesToLoad = [
     {"source": ["file", "DATAELEMENTDESCRIPTION.csv"],
@@ -59,7 +58,7 @@ nodesToLoad = [
         dirData-> will load all JSON configuration file located at this folder
         includeFiles    -> FILTER to load list of files in dirData folder
         notIncldeFiles  -> FILTER to remove list of files in dirData folder
-        connDixt -> update all connection url. same property as Config.CONN_URL
+        connDixt -> update all connection url. same property as Config.CONNECTIONS
         processes -> number of parrallel processing for loading data (DONG module) 
 """
 

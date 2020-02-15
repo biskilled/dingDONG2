@@ -100,7 +100,6 @@ class connDb (baseConnBatch):
                   connIsSrc=None, connIsSql=None, connUrl=None, connTbl=None,  connFilter=None,
                   defaults=None, dataTypes=None):
 
-
         baseConnBatch.__init__(self, propertyDict=propertyDict, connType=connType, connName=connName,
                                 connIsTar=connIsTar,connIsSrc=connIsSrc, connIsSql=connIsSql,
                                connUrl=connUrl, connTbl=connTbl, connFilter=connFilter,defaults=DEFAULTS[eConn.types.NONO], dataTypes=DATA_TYPES)
@@ -112,7 +111,7 @@ class connDb (baseConnBatch):
             self.defaults.update(DEFAULTS[self.connType])
 
         if self.connType in EXTEND_DATA_TYPES:
-            self.dataTypes = self.setDataTypes(connDataTypes=EXTEND_DATA_TYPES[self.connType])
+            self.dataTypes = self.setDataTypes(connDataTypes=EXTEND_DATA_TYPES[self.connType]).copy()
 
         if dataTypes:
             self.dataTypes = self.setDataTypes(connDataTypes=dataTypes)
@@ -122,6 +121,7 @@ class connDb (baseConnBatch):
 
         """ DB PROPERTIES """
         self.connUrl    = setProperty(k=eConn.props.URL, o=self.propertyDict, defVal=self.propertyDict)
+
         self.connTbl    = setProperty(k=eConn.props.TBL, o=self.propertyDict, defVal=None)
         self.connFilter = setProperty(k=eConn.props.FILTER, o=self.propertyDict, defVal=None)
         self.sqlFolder  = setProperty(k=eConn.props.FOLDER, o=self.propertyDict, defVal=None)
@@ -186,6 +186,7 @@ class connDb (baseConnBatch):
 
             elif eConn.types.ORACLE == self.connType:
                 self.isExtractSqlIsOnlySTR = True
+
                 self.connDB = cx_Oracle.connect(self.connUrl[eConn.connString.URL_USER], self.connUrl[eConn.connString.URL_PASS], self.connUrl[eConn.connString.URL_DSN])
                 if 'nls' in self.connUrl:
                     os.environ["NLS_LANG"] = self.connUrl[eConn.connString.URL_NLS]

@@ -33,7 +33,7 @@ class nodeExec (object):
         self.addSourceColumn= True
         self.addIndex       = None
         self.nodes          = None
-        self.connDict       = connDict if connDict else config.CONN_URL
+        self.connDict       = connDict if connDict else config.CONNECTIONS
         self.versionManager = versionManager
 
         jsonNodes           = []
@@ -217,7 +217,6 @@ class nodeExec (object):
 
                 ## Receive list of all dataType in DataTypes Tree
                 newDataTypeTree     = src.getDataTypeTree (dataType=replaceString.lower(), ret=([]))
-
 
                 if newDataTypeTree is None:
                     p("SOURCE CONNECTION: %s, COLUMN: %s, DATA TYPE: %s ; IS NOT EXISTS, WILL USE DEFAULT VALUE" %(src.connType,col, replaceString),"w")

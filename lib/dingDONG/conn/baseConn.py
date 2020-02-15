@@ -4,9 +4,7 @@ import copy
 import re
 
 from dingDONG.misc.enums import eConn
-from dingDONG.conn.globalMethods import setProperty
-from dingDong.misc.misc     import replaceStr, uniocdeStr
-
+from dingDONG.conn.globalMethods import setProperty, replaceStr, uniocdeStr
 
 DEFAULTS = {
     eConn.defaults.DEFAULT_TYPE:eConn.dataTypes.B_STR,
@@ -33,7 +31,7 @@ class baseConn ():
         self.defaults = DEFAULTS.copy()
         self.defaults.update (setProperty(k=eConn.props.DEFAULTS, o=self.propertyDict, defVal={}))
 
-        self.dataTypes = self.setDataTypes (connDataTypes=setProperty(k=eConn.props.DATA_TYPES,o=self.propertyDict, defVal={}))
+        self.dataTypes = self.setDataTypes (connDataTypes=setProperty(k=eConn.props.DATA_TYPES,o=self.propertyDict, defVal={})).copy()
         self.batchSize = self.defaults[eConn.defaults.BATCH_SIZE]
 
     @abc.abstractmethod

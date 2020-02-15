@@ -37,9 +37,9 @@ class jsonParser (object):
                   dirData=None, includeFiles=None, notIncludeFiles=None, connDict=None, sqlFolder=None):
 
         if connDict and isinstance(connDict ,(dict, OrderedDict)):
-            config.CONN_URL.update(connDict)
+            config.CONNECTIONS.update(connDict)
 
-        self.connDict = config.CONN_URL
+        self.connDict = config.CONNECTIONS
         self.sqlFolder= sqlFolder
         self.__initConnDict ()
         self.listObj    = []
@@ -279,9 +279,7 @@ class jsonParser (object):
 
         ### Update values from Source connection
         ret[eJson.merge.SOURCE]  = srcConn[eConn.props.TBL]
-        ret[eConn.props.TYPE]         = srcConn[eConn.props.TYPE]
-        ret[eConn.props.URL]          = srcConn[eConn.props.URL]
-        ret[eConn.props.SQL_FILE]     = srcConn[eConn.props.SQL_FILE]
+        ret[eConn.props.TYPE]    = srcConn[eConn.props.TYPE]
 
         if isinstance(propVal, str):
             ret[eConn.props.NAME]         = propFullName
@@ -392,7 +390,7 @@ class jsonParser (object):
 
             returnDict = {eConn.props.DB_INDEX_COLUMS:[],eConn.props.DB_INDEX_CLUSTER:True,eConn.props.DB_INDEX_UNIQUE:False}
             for node in indexDict:
-                k =  findEnum (prop=node.lower(), obj=eJson, dictProp=indexDict[node])
+                k =  findEnum (prop=node.lower(), obj=eJson.index)
 
                 if not k:
                     p("INDEX VALUES IS NOT VALID: %s, IGNORE INDEX. VALID FORMAT: FORMAT {'C'':list_column_index, 'ic':is cluster (True/False), 'iu': is unique (True/False)}")

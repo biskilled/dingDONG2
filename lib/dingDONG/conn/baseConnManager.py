@@ -38,7 +38,7 @@ def addPropToDict (existsDict, newProp):
 
 def mngConnectors(propertyDict, connLoadProp=None):
 
-    connLoadProp = connLoadProp if connLoadProp else config.CONN_URL
+    connLoadProp = connLoadProp if connLoadProp else config.CONNECTIONS
 
     ## Merge by CONNECTION
     if eConn.props.TYPE in propertyDict and propertyDict[eConn.props.TYPE] in connLoadProp:

@@ -26,7 +26,7 @@ class eConn (object):
 
         eDict = {
             NAME:       [NAME, 'name'],
-            TYPE:       [TYPE],
+            TYPE:       [TYPE, 'type'],
             TBL:        [TBL, 'tableName'],
             FILTER:     [FILTER, 'filter'],
             URL:        [URL,'url'],
@@ -168,3 +168,14 @@ class eJson (object):
         TARGET  = 'merge_target'
         MERGE   = 'merge_keys'
         DIC     = {SOURCE:None, TARGET:None, MERGE:None}
+
+    class index(object):
+        COLUMNS = 'c'
+        CLUSTER = 'ic'
+        UNIQUE  = 'iu'
+
+        eDict = {
+            COLUMNS: [COLUMNS, 'col'],
+            CLUSTER: [CLUSTER, 'cluster'],
+            UNIQUE:  [UNIQUE, 'unique']
+        }
