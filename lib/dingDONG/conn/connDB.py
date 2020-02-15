@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2017-2019, Tal Shany <tal.shany@biSkilled.com>
+# (c) 2017-2020, Tal Shany <tal.shany@biSkilled.com>
 #
 # This file is part of dingDong
 #
