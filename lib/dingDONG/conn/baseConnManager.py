@@ -42,45 +42,15 @@ def mngConnectors(propertyDict, connLoadProp=None):
 
     ## Merge by CONNECTION
     if eConn.props.TYPE in propertyDict and propertyDict[eConn.props.TYPE] in connLoadProp:
-        propertyDict = addPropToDict(existsDict=propertyDict, newProp=connLoadProp[propertyDict[eConn.props.TYPE]])
-        # update Connection type
-        if eConn.props.TYPE in connLoadProp[propertyDict[eConn.props.TYPE]] and connLoadProp[propertyDict[eConn.props.TYPE]][eConn.props.TYPE] is not None:
-            propertyDict[eConn.props.TYPE] = connLoadProp[propertyDict[eConn.props.TYPE]][eConn.props.TYPE]
-
-    if eConn.props.NAME in propertyDict and propertyDict[eConn.props.NAME] in connLoadProp :
-        propertyDict = addPropToDict(existsDict=propertyDict, newProp=connLoadProp[propertyDict[eConn.props.NAME]])
-
-    elif eConn.props.TYPE in propertyDict and propertyDict[eConn.props.TYPE] in connLoadProp :
-        propertyDict = addPropToDict(existsDict=propertyDict, newProp=connLoadProp[propertyDict[eConn.props.TYPE]])
-
-    if eConn.props.NAME not in propertyDict or propertyDict[eConn.props.NAME] is None:
-        propertyDict[eConn.props.NAME] = propertyDict[eConn.props.TYPE]
-
-    # Tal: if ther is no URL, check if conn is Set, search if there is only one conn and update details
-    if  eConn.props.URL not in propertyDict or (propertyDict[eConn.props.URL] is None and propertyDict[eConn.props.TYPE] is not None):
-        connToLook  = propertyDict[eConn.props.TYPE]
-
-        # will match / add missing values from config_url. based on connection type
-        for c in connLoadProp:
-            if c == connToLook or (eConn.props.TYPE in connLoadProp[c] and connToLook == connLoadProp[c][eConn.props.TYPE] ):
-                connParams = connLoadProp[c]
-
-                for prop in connParams:
-                    if prop not in propertyDict:
-                        propertyDict[prop] = connParams[prop]
-                        p("CONN: %s, ADD PROPERTY %s, VALUE: %s" % (str(connToLook), str(prop), str(connParams[prop])),"ii")
-                    elif connParams[prop] is None and connParams[prop] is not None:
-                        connParams[prop] = connParams[prop]
-                        p("CONN: %s, UPDATE PROPERTY %s, VALUE: %s" % (str(connToLook), str(prop), str(connParams[prop])),"ii")
+        connValues = connLoadProp [ propertyDict[eConn.props.TYPE] ]
+        for val in connValues:
+            propertyDict[ val ] = connValues[ val ]
 
 
     if propertyDict and isinstance(propertyDict, dict) and eConn.props.TYPE in propertyDict:
         cType = propertyDict[eConn.props.TYPE]
         if cType in CLASS_TO_LOAD:
-
-
             return CLASS_TO_LOAD[cType]( propertyDict=propertyDict )
-
         else:
             p("CONNECTION %s is NOT DEFINED. PROP: %s" % (str(cType), str(propertyDict)), "e")
     else:

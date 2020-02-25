@@ -58,14 +58,14 @@ class jsonParser (object):
                 with io.open(filePath, encoding="utf-8") as jsonFile:  #
                     dicObj = json.load(jsonFile, object_pairs_hook=OrderedDict)
                     self.listObj.append (dicObj)
-                    msg+="loading data from file"
+                    msg+="Loading data from file"
             else:
                 p("file %s is not exists " %(filePath),"e")
 
         if dirData:
             self.dirData = dirData
             if not os.path.isdir(dirData):
-                p ("Folder not  exists : %s" % dirData, "e")
+                p ("Folder not exists : %s" % dirData, "e")
                 return
             else:
                 msg += "loading data from folder: %s" %dirData
@@ -98,7 +98,7 @@ class jsonParser (object):
         if self.listObj and len (self.listObj)>0:
             self.jsonMapp = list([])
             self.jsonName = ''
-            self.__initMetaDict(listObj=self.listObj, destList=None)
+            self.__initMetaDict(listObj=self.listObj, destList=destList)
 
             yield {self.jsonName:self.jsonMapp}
         elif self.listFiles and len (self.listFiles)>0:
@@ -107,7 +107,7 @@ class jsonParser (object):
                 self.jsonName = js
                 with io.open(os.path.join(self.dirData, js), encoding="utf-8") as jsonFile:  #
                     jText = json.load(jsonFile, object_pairs_hook=OrderedDict)
-                    self.__initMetaDict(listObj=jText, destList=None)
+                    self.__initMetaDict(listObj=jText, destList=destList)
                     yield {self.jsonName:self.jsonMapp}
 
     def getAllConnection (self, pr=True):

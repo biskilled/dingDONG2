@@ -158,12 +158,12 @@ class dingDONG:
         while True:
             try:
                 (jMap, procNum, procTotal) = q.get()
-                dingObject = ddManager(node=jMap)
+                dingObject =  nodeExec(node=jMap, connDict=self.connDict)
                 if procTotal > 1:
                     p("DONG PROCESS NUMBER %s OUT OF %s" % (str(procNum), str(procTotal)))
                 dingObject.dong()
             except Exception as e:
-                err = traceback.extract_tb(e.__traceback__)
+                err = traceback.print_exc(e)
                 p("MULTI THREADING ERROR:\n%s " % e, "e")
                 for er in err:
                     p(er , "e")
@@ -198,7 +198,7 @@ class dingDONG:
 
     def test (self):
         for connProp in self.connDict:
-            c = conn(connPropDic=self.connDict[connProp], connLoadProp=None)
+            c = conn(propertyDict=self.connDict[connProp], connLoadProp=None)
             c.test ()
 
     def execMicrosoftOLAP (self, serverName, dbName, cubes=[], dims=[], fullProcess=True):
