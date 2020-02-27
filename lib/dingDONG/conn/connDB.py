@@ -1070,9 +1070,9 @@ class connDb (baseConnBatch):
 
         if ignoreCase:
             pattern = re.compile(re.escape(findStr), re.IGNORECASE)
-            res = pattern.sub(repStr, sString)
+            res = pattern.sub(str(repStr), sString)
         else:
-            res = sString.replace(findStr, repStr)
+            res = sString.replace(findStr, str(repStr))
         return res
 
     """ INTERNAL USED """
