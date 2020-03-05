@@ -183,11 +183,14 @@ class executeAddMsg (object):
         try:
             server = smtplib.SMTP(serverSMTP)
             server.ehlo()
-            server.starttls()
 
-            server.login(serverUsr, serverPass)
+            if serverUsr and  serverPass:
+                server.starttls()
+                server.login(serverUsr, serverPass)
+
             server.sendmail(sender, receiversList, msg.as_string())
             server.quit()
+
         except smtplib.SMTPException:
             err = "gFunc->sendMsg: unable to send email to %s, subject is: %s " % (str(receivers), str(msgSubj))
             raise ValueError(err)
