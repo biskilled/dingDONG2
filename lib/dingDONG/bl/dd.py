@@ -30,7 +30,7 @@ from dingDONG.bl.ddNodeExec import nodeExec
 from dingDONG.config            import config
 from dingDONG.misc.logger       import p, LOGGER_OBJECT
 from dingDONG.bl.jsonParser     import jsonParser
-from dingDONG.misc.enums        import eJson
+from dingDONG.misc.enums        import eJson, eConn
 from dingDONG.conn.baseConnManager import mngConnectors as conn
 
 ## Execters
@@ -189,11 +189,10 @@ class dingDONG:
     """ LOADING BUSINESS LOGIC EXECUTOERS """
     def execDbSql(self, queries, connName=None, connType=None, connUrl=None, connPropDic=None):
         connPropDic = connPropDic if connPropDic else {}
-        if connName : connPropDic[eJson.jValues.NAME] = connName
-        if connType : connPropDic[eJson.jValues.CONN] = connType
-        if connUrl  : connPropDic[eJson.jValues.URL] = connUrl
-
-        connObj = conn(connPropDic=connPropDic , connLoadProp=self.connDict)
+        if connName : connPropDic[eConn.props.NAME] = connName
+        connPropDic[eConn.props.TYPE] = connType if connType else connName
+        if connUrl  : connPropDic[eConn.props.URL] = connUrl
+        connObj = conn(propertyDict=connPropDic , connLoadProp=self.connDict)
         execQuery(sqlWithParamList=queries, connObj=connObj, msg=self.msg)
 
     def test (self):

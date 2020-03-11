@@ -30,7 +30,7 @@ class eConn (object):
             TBL:        [TBL, 'tableName'],
             FILTER:     [FILTER, 'filter'],
             URL:        [URL,'url'],
-            FOLDER:     [FOLDER, 'files'],
+            FOLDER:     [FOLDER, 'files', 'folder'],
             SQL_FILE:   [SQL_FILE, 'file'],
             UPDATE:     [UPDATE,'change'],
             DB_NAME:    [DB_NAME, 'dbname'],

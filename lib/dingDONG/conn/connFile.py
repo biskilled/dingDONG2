@@ -80,11 +80,12 @@ class connFile (baseConnBatch):
 
         """ FILE PROPERTIES """
         self.fileFullName = None
-        self.folder   = setProperty(k=eConn.defaults.FILE_CSV, o=self.propertyDict, setVal=folder)
+        self.folder   = setProperty(k=eConn.props.FOLDER, o=self.propertyDict, setVal=folder)
         if not self.folder:
             self.folder = setProperty(k=eConn.props.URL, o=self.propertyDict, defVal=None)
 
         self.fileName = setProperty(k=eConn.props.TBL, o=self.propertyDict, setVal=fileName)
+
 
         if self.fileName:
             head, tail = os.path.split (self.fileName)
